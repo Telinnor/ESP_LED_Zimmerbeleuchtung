@@ -15,4 +15,5 @@ Diese Methode ist nicht Leistungsoptimiert, da der Master potenziell nicht mit d
 ### Umsetzung 2
 
 Diese Idee ist die gleiche Logik wie Umsetzung 1 verwendet aber anstelle eines des TCP Protokolls das UDP Protokoll. Diese Veränderung soll durch das Weglassen der Fehlererkennung eine schneller Verbindung herstellen. [(TCP vs. UDP)](https://nordvpn.com/de/blog/tcp-vs-udp/). Der TCP webserver ist immer noch als Ausfallsicherheit vorhanden, wird nur verwendet damit die Anzahl der LEDs Störungsfrei übertragen wird.
-
+#### Resultat
+Diese Idee hat vollständig funktioniert ich konnte keine Störungen feststellen alle Daten wurden auch übermittelt. Es dauert circa 50ms zwischen einzelnen Datenpacketen, dies entsüricht somit 20Hz ist damit ein sehr guter Wert.
