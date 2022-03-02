@@ -8,7 +8,11 @@ Die Idee ist es einen Controller (Master) zu haben, wo alle Berechnungen durchge
 
 ### Umsetzung 1
 
-Die Slaves pingen den Master mehrere Male in der Sekunde an und zeigen den aktuellen Status an ohne Überprüfung, ob sich Daten geändert haben.
+Die Slaves pingen den Master mehrere Male in der Sekunde an und zeigen dann alle Pixeln vom Stripe an ohne Überprüfung, ob sich Daten geändert haben.
 
 Diese Methode ist nicht Leistungsoptimiert, da der Master potenziell nicht mit der Masse an Anfragen klar kommt. Viele Daten werden auch unnötigerweise versendet was die Geschwindigkeit zu Schaden kommt.
+
+### Umsetzung 2
+
+Diese Idee ist die gleiche Logik wie Umsetzung 1 verwendet aber anstelle eines des TCP Protokolls das UDP Protokoll. Diese Veränderung soll durch das Weglassen der Fehlererkennung eine schneller Verbindung herstellen. [(TCP vs. UDP)](https://nordvpn.com/de/blog/tcp-vs-udp/). Der TCP webserver ist immer noch als Ausfallsicherheit vorhanden, wird nur verwendet damit die Anzahl der LEDs Störungsfrei übertragen wird.
 
