@@ -9,12 +9,12 @@
 #define PIN 2
 
 //#define numLED 100
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(20, PIN, NEO_GRB + NEO_KHZ800);
+int numLED = 10;
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLED, PIN, NEO_GRB + NEO_KHZ800);
 
 WiFiUDP UDP;
 char UDP_packet[600];
 
-int numLED=20;
 
 String host = "http://192.168.4.1";
 
@@ -106,6 +106,7 @@ String clientAktion(String address) { //open Website and return its content
 }
 
 void ReadLEDs(String line) { //take the string of values and set the Pixel Colour
+Serial.println(line);
   for (int i = 0; i < numLED; i++) {
     //char colorHEX[6] = {line.charAt(5 + i * 7 + 0) , line.charAt(5 + i * 7 + 1) , line.charAt(5 + i * 7 + 2) , line.charAt(5 + i * 7 + 3) , line.charAt(5 + i * 7 + 4) , line.charAt(5 + i * 7 + 5)};
     char colorHEX[6];
@@ -134,7 +135,7 @@ bool checkUDP(){ //überprüfen ob ein UDP Packet vorhanden ist und es im Monito
   {
     Serial.print("Received packet! Size: ");
     Serial.println(packetSize);
-    int len = UDP.read(UDP_packet, 255);
+    int len = UDP.read(UDP_packet, packetSize);
     if (len > 0)
     {
       UDP_packet[len] = '\0';
