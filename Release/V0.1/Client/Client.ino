@@ -22,23 +22,23 @@ void setup()
 {
   delay(1000);
 
-  Serial.begin(115200);
+  //Serial.begin(115200);
 
   WIFIconnect();
-  Serial.print("My IP-Adress is:  ");
-  Serial.println(WiFi.localIP());
+  //Serial.print("My IP-Adress is:  ");
+  //Serial.println(WiFi.localIP());
 
   strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();
   numLED =clientAktion(host+"/numLED").toInt();
-  Serial.print("numLED:  ");
-  Serial.println(numLED);
+  //Serial.print("numLED:  ");
+  //Serial.println(numLED);
   strip.updateLength(numLED);
   strip.clear();
   strip.show();
   UDP.begin(UDP_PORT);
-  Serial.print("Listening on UDP port ");
-  Serial.println(UDP_PORT);
+  //Serial.print("Listening on UDP port ");
+  //Serial.println(UDP_PORT);
 }
 
 void loop()
@@ -57,9 +57,9 @@ byte trys=0;
   {
     trys++;
     delay(500);
-    Serial.print(".");
+    //Serial.print(".");
     if (trys>=30){
-      Serial.println("RESTART...");
+      //Serial.println("RESTART...");
       ESP.restart();
     }
   }
@@ -82,7 +82,7 @@ String clientAktion(String address) { //open Website and return its content
     if (httpCode > 0)
     {
       // HTTP header has been send and Server response header has been handled
-      Serial.printf("[HTTP] GET... code: %d\n", httpCode);
+      //Serial.printf("[HTTP] GET... code: %d\n", httpCode);
 
       // file found at server
       if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY)
@@ -95,7 +95,7 @@ String clientAktion(String address) { //open Website and return its content
     }
     else
     {
-      Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+      //Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
       WiFi.mode(WIFI_OFF);
       WIFIconnect();
     }
@@ -106,7 +106,7 @@ String clientAktion(String address) { //open Website and return its content
 }
 
 void ReadLEDs(String line) { //take the string of values and set the Pixel Colour
-Serial.println(line);
+//Serial.println(line);
   for (int i = 0; i < numLED; i++) {
     //char colorHEX[6] = {line.charAt(5 + i * 7 + 0) , line.charAt(5 + i * 7 + 1) , line.charAt(5 + i * 7 + 2) , line.charAt(5 + i * 7 + 3) , line.charAt(5 + i * 7 + 4) , line.charAt(5 + i * 7 + 5)};
     char colorHEX[6];
@@ -121,7 +121,7 @@ Serial.println(line);
     }
     strip.setPixelColor(i, color);
   }
-  Serial.printf("color in int: %d,%x\n", strip.getPixelColor(0), strip.getPixelColor(0));
+  //Serial.printf("color in int: %d,%x\n", strip.getPixelColor(0), strip.getPixelColor(0));
 }
 
 int StrToHex(char str[])
@@ -133,8 +133,8 @@ bool checkUDP(){ //überprüfen ob ein UDP Packet vorhanden ist und es im Monito
   int packetSize = UDP.parsePacket();
   if (packetSize)
   {
-    Serial.print("Received packet! Size: ");
-    Serial.println(packetSize);
+    //Serial.print("Received packet! Size: ");
+    //Serial.println(packetSize);
     int len = UDP.read(UDP_packet, packetSize);
     if (len > 0)
     {

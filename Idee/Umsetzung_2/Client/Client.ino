@@ -106,7 +106,7 @@ String clientAktion(String address) { //open Website and return its content
 }
 
 void ReadLEDs(String line) { //take the string of values and set the Pixel Colour
-Serial.println(line);
+//Serial.println(line);
   for (int i = 0; i < numLED; i++) {
     //char colorHEX[6] = {line.charAt(5 + i * 7 + 0) , line.charAt(5 + i * 7 + 1) , line.charAt(5 + i * 7 + 2) , line.charAt(5 + i * 7 + 3) , line.charAt(5 + i * 7 + 4) , line.charAt(5 + i * 7 + 5)};
     char colorHEX[6];
