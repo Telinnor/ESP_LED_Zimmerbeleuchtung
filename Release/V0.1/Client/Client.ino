@@ -70,7 +70,7 @@ String clientAktion(String address) { //open Website and return its content
 
   HTTPClient http;
   String payload;
-  Serial.print("[HTTP] begin...\n");
+  //Serial.print("[HTTP] begin...\n");
   if (http.begin(client, address))
   { // HTTP
 
