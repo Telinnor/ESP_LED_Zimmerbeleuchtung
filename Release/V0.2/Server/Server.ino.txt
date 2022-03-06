@@ -1,0 +1,58 @@
+#include "Connection.h"
+Connection con;
+// https://www.tweaking4all.com/hardware/arduino/adruino-led-strip-effects/
+
+#include <ESP8266WebServer.h>
+#include <ESP8266WiFi.h>
+
+#include <Adafruit_NeoPixel.h>
+#define LED_PIN 2
+#define LED_COUNT 50
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+void setup()
+{
+
+    // END of Trinket-specific code.
+    Serial.begin(115200);
+    strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
+    strip.show();            // Turn OFF all pixels ASAP
+    strip.setBrightness(20); 
+    con.beginConnection(&strip);
+    Serial.println("Setup finshed");
+}
+
+// loop() function -- runs repeatedly as long as board is on ---------------
+unsigned long previousTime=0;
+void loop()
+{
+    con.handleConnection();
+
+    /*if (millis() - previousTime > 50) //STrOBO mit 50 funktioniert
+    {
+        previousTime = millis();
+        StripeStrobe();
+    }*/
+    if (millis() - previousTime>100){
+        previousTime=millis();
+        ColorWheel();
+        //strip.show();
+        //Serial.println(strip.getPixelColor(0));
+    }
+}
+
+unsigned int i=0;
+void ColorWheel(){
+    uint32_t rgbcolor = strip.ColorHSV(i);
+    strip.fill(rgbcolor);
+    i=i+200;
+    //i = i % 65536;
+    //strip.rainbow(0,128,255);
+}
+bool strobe=1;
+void StripeStrobe(){
+    if (strobe) {strip.fill(0xffffff);}
+    else {strip.clear();}
+    strobe = !strobe;
+            
+}
